@@ -9,12 +9,13 @@ import java.io.*;
  */
 public class Ventana extends JFrame{
 
-    String nombre;
+    String nombre = "";
     String ruta;
 
     JFrame ven = new JFrame("Editor de Texto");
     JMenuBar barra = new JMenuBar();
     JMenu archivo = new JMenu("Archivo");
+    JMenu analizar = new JMenu("Analizar");
     JMenuItem optabrir = new JMenuItem("Abrir");
     JMenuItem optnuevo = new JMenuItem("Nuevo");
     JMenuItem optguardar = new JMenuItem("Guardar");
@@ -34,6 +35,7 @@ public class Ventana extends JFrame{
         ven.setJMenuBar(barra);
         ven.add(texto);
         barra.add(archivo);
+        barra.add(analizar);
         archivo.add(optabrir);
         archivo.add(optguardar);
         archivo.add(optnuevo);
@@ -50,32 +52,49 @@ public class Ventana extends JFrame{
 
         optabrir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                fc.showSaveDialog(fc);
-                int rest = fc.APPROVE_OPTION;
-                if(rest==JFileChooser.APPROVE_OPTION)
-                {
-                    File o=fc.getSelectedFile();
-                    String b = o.toString();
-                    texto.setText(leer(b));
-                    ruta = o.getParent();
-                }
-                texto.setEditable(true);
+                try {
+                    fc.showSaveDialog(fc);
+                    int rest = fc.APPROVE_OPTION;
+                    if (rest == JFileChooser.APPROVE_OPTION) {
+                        File o = fc.getSelectedFile();
+                        String b = o.toString();
+                        String nombre2 = o.getName();
+                        char[] nuevo = nombre2.toCharArray();
+                        for (int i = 0; i < (nuevo.length - 4); i++) {
+                            nombre = nombre + nuevo[i];
+                        }
+                        texto.setText(leer(b));
+                        ruta = o.getParent();
+                    }
+                    texto.setEditable(true);
+                } catch (Exception m){}
             }
         });
 
         optguardar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                nombre = JOptionPane.showInputDialog("Ingrese El Nombre Con El Que Desea Guardar");
-                escribir(nombre, ruta, texto.getText());
+               try{
+                   escribir(nombre, ruta, texto.getText());
+                   JOptionPane.showMessageDialog(ven, "Los cambios han sido guardados");
+
+               }catch (Exception l){
+
+                   JOptionPane.showMessageDialog(ven,
+                           "Error al guardar",
+                           "Inane error",
+                           JOptionPane.ERROR_MESSAGE);
+
+               }
+
 
             }
         });
 
         optnuevo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
-                nombre = JOptionPane.showInputDialog("Ingrese El Nombre Con El Que Desea Guardar");
+                try{
+                nombre = JOptionPane.showInputDialog("Ingrese el nombre con el \nque desea guardar el archivo");
                 fc.showSaveDialog(fc);
                 int rest = fc.APPROVE_OPTION;
                 if(rest==JFileChooser.APPROVE_OPTION)
@@ -84,6 +103,13 @@ public class Ventana extends JFrame{
                     ruta = o.getParent();
                 }
                 escribir(nombre, ruta, " ");
+                texto.setEditable(true); }
+                catch (Exception f){
+                    JOptionPane.showMessageDialog(ven,
+                            "Error al guardar",
+                            "Inane error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
     }
