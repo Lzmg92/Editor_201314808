@@ -16,9 +16,12 @@ public class Ventana extends JFrame{
     JMenuBar barra = new JMenuBar();
     JMenu archivo = new JMenu("Archivo");
     JMenu analizar = new JMenu("Analizar");
+
     JMenuItem optabrir = new JMenuItem("Abrir");
     JMenuItem optnuevo = new JMenuItem("Nuevo");
     JMenuItem optguardar = new JMenuItem("Guardar");
+
+    JMenuItem correr = new JMenuItem("Run");
 
     JTextArea texto = new JTextArea();
 
@@ -36,12 +39,15 @@ public class Ventana extends JFrame{
         ven.add(texto);
         barra.add(archivo);
         barra.add(analizar);
+
         archivo.add(optabrir);
         archivo.add(optguardar);
         archivo.add(optnuevo);
 
+        analizar.add(correr);
+
        //
-        texto.setBounds(0,0, ven.getWidth(), ven.getHeight());
+        texto.setBounds(0, 0, ven.getWidth(), ven.getHeight());
         texto.setBackground(Color.black);
         texto.setForeground(Color.white);
         texto.setMargin(new Insets(10, 20, 30, 40));
@@ -112,7 +118,29 @@ public class Ventana extends JFrame{
                 }
             }
         });
+
+        correr.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new AnalizadorLex(new FileInputStream("ejemplo.cyd"));
+                    System.out.println("entro");
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
+
     }
+
+
+
+
+
+
+
+
+
 
     //////////////////////////////////////////////////////// metodo para leer
     public String leer(String nombre){
