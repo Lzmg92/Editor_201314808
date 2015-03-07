@@ -16,3 +16,18 @@ parser code
     }
 :}
 
+{:
+//nada
+:}
+
+terminal  acarpeta, aestructura, adirectorio, aformato, anombre, adocumento, acontenido, ccarpeta, cestructura, cdirectorio, cformato, cnombre, cdocumento, ccontenido;
+terminal String palabra;
+
+non terminal INICIAL, CON, CAR, DCTO;
+
+start with INICIAL;
+
+INICIAL ::= aestructura {: System.out.println("aestructura"); } CON cestructura {: System.out.println("cestructura"); } ;
+CON ::= adirectorio {: System.out.println("adir"); }  palabra:dir {: System.out.println("dir"+dir); }  cdirectorio {: System.out.println("cdir"); }  acarpeta {: System.out.println("acarp"); }  CAR ccarpeta {: System.out.println("ccarp"); } ;
+CAR ::= anombre {: System.out.println("anom"); }  palabra cnombre {: System.out.println("cnom"); }  adocumento {: System.out.println("adcto"); }  DCTO cdocumento {: System.out.println("cdcto); } ;
+DCTO ::= anombre palabra cnombre aformato palabra cformato acontenido palabra ccontenido;

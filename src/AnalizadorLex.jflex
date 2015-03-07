@@ -12,11 +12,15 @@ import java_cup.runtime.Symbol;
 %char
 %ignorecase
 
+numero =[0-9]+ "."? [0-9]*
+letra =[a-zA-ZÑñ]+
+palabra ={letra}({letra}|{numero}| ":" )*
 
-palabra =[a-zA-Z]+
+
+
 
 %%
-"<estructura>"      {return new Symbol(simbolo.ahtml, yychar,yyline); }
+"<estructura>"      {return new Symbol(simbolo.aestructura, yychar,yyline); }
 "<carpeta>"         {return new Symbol(simbolo.acarpeta, yychar,yyline); }
 "<directorio>"      {return new Symbol(simbolo.adirecotorio, yychar,yyline); }
 "<nombre>"          {return new Symbol(simbolo.anombre, yychar,yyline); }
@@ -24,7 +28,7 @@ palabra =[a-zA-Z]+
 "<formato>"         {return new Symbol(simbolo.aformato, yychar,yyline); }
 "<contenido>"       {return new Symbol(simbolo.acontenido, yychar,yyline); }
 
-"</estructura>"      {return new Symbol(simbolo.chtml, yychar,yyline); }
+"</estructura>"      {return new Symbol(simbolo.cestructura, yychar,yyline); }
 "</carpeta>"         {return new Symbol(simbolo.ccarpeta, yychar,yyline); }
 "</directorio>"      {return new Symbol(simbolo.cdirecotorio, yychar,yyline); }
 "</nombre>"          {return new Symbol(simbolo.cnombre, yychar,yyline); }
@@ -38,3 +42,4 @@ palabra =[a-zA-Z]+
 [ \t\r\f\n]+       { /* Se ignoran */}
 
 .   { System.out.println("Error lexico: "+yytext()); }
+
