@@ -22,16 +22,45 @@ action code
 
 terminal  acarpeta, aestructura, adirectorio, aformato, anombre, adocumento, acontenido, ccarpeta, cestructura, cdirectorio, cformato, cnombre, cdocumento, ccontenido;
 
-terminal String palabra, numero, letra;
+terminal String palabra, esstring;
 
-non terminal INICIAL, CON, CAR, DCTO;
+non terminal INICIAL, CON, CAR, NCAR, DCTO, ES, E, DIR, CARREC;
 
 start with INICIAL;
 
-INICIAL ::= aestructura {: System.out.println("aestructura"); :} CON cestructura {: System.out.println("cestructura"); :} ;
+INICIAL ::= ES;
 
-CON ::= adirectorio {: System.out.println("adir"); :}  palabra:pal  {: System.out.println("palabra"+pal); :}  cdirectorio {: System.out.println("cdir"); :}  acarpeta {: System.out.println("acarp"); :}  CAR ccarpeta {: System.out.println("ccarp"); :} ;
+ES ::= E ES
+      |E ;
 
-CAR ::= anombre {: System.out.println("anom"); :}  palabra cnombre {: System.out.println("cnom"); :}  adocumento {: System.out.println("adcto"); :}  DCTO cdocumento {: System.out.println("cdcto"); :} ;
+E ::= aestructura {: System.out.println("aestructura"); :} CON
+      cestructura {: System.out.println("cestructura"); :};
 
-DCTO ::= anombre palabra cnombre aformato palabra cformato acontenido palabra ccontenido;
+DIR ::= adirectorio {: System.out.println("adir"); :}  palabra:pal  {: System.out.println("palabra: "+pal); :}
+        cdirectorio {: System.out.println("cdir"); :} ;
+
+NCAR ::= anombre {: System.out.println("anom"); :}   palabra:pal  {: System.out.println("palabra :"+pal); :}
+         cnombre {: System.out.println("cnom"); :} ;
+
+CAR::= acarpeta  {: System.out.println("acarpeta"); :}  CARREC
+       ccarpeta  {: System.out.println("ccarpe"); :} ;
+
+DCTO ::=   adocumento {: System.out.println("adcto"); :}
+           anombre palabra cnombre
+           aformato palabra cformato
+           acontenido esstring:st  {: System.out.println("palabra :"+st); :}  ccontenido
+           cdocumento {: System.out.println("cdcto"); :};
+
+CARREC ::= NCAR CARREC
+        |  CAR
+        |  CAR CARREC
+        |  DCTO CARREC
+        |  DCTO;
+
+
+CON ::= DIR CAR CON
+    |   DCTO CON
+    |   DCTO
+    |   DIR CAR;
+
+

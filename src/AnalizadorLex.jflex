@@ -15,10 +15,8 @@ import java_cup.runtime.Symbol;
 
 numero =[0-9]+ "."? [0-9]*
 letra =[a-zA-ZÑñ]+
-palabra ={letra}({letra}|{numero}| ":" )*
-
-
-
+palabra ={letra}({letra}|{numero}| ":" | " ")*
+esstring = [\"]{palabra}[\"]
 
 %%
 "<estructura>"      {return new Symbol(simbolo.aestructura, yychar,yyline); }
@@ -38,9 +36,9 @@ palabra ={letra}({letra}|{numero}| ":" )*
 "</contenido>"       {return new Symbol(simbolo.ccontenido, yychar,yyline); }
 
 {palabra}             {return new Symbol(simbolo.palabra, yychar,yyline, new String(yytext())); }
+{esstring}            {return new Symbol(simbolo.esstring, yychar, yyline, new String(yytext())); }
 
 
 [ \t\r\f\n]+       { /* Se ignoran */}
 
 .   { System.out.println("Error lexico: "+yytext()); }
-
