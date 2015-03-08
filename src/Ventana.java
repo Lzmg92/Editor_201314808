@@ -122,9 +122,14 @@ public class Ventana extends JFrame{
         correr.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new AnalizadorLex(new FileInputStream("ejemplo.cyd"));
                     System.out.println("entro");
+                    System.out.println("--------------------------------");
+                    new AnalizadorSin(new AnalizadorLex(new FileInputStream("ejemplo.cyd"))).parse();
                 } catch (FileNotFoundException e1) {
+                    System.out.println("no entro no encontrado");
+                    e1.printStackTrace();
+                } catch (Exception e1) {
+                    System.out.println("no entro no se x q");
                     e1.printStackTrace();
                 }
             }

@@ -1,23 +1,11 @@
 <estructura>
 	<directorio>C:</directorio>
 		<carpeta>
-			<nombre>calificacion</nombre>
-			<carpeta>
-				<nombre>subcarpeta</nombre>
+			<nombre>calificacion</nombre>		        
 				<documento>
 					<nombre>compiladores</nombre>
 					<formato>txt</formato>
-					<contenido>"Curso de compiladores 1"</contenido>
+					<contenido>Cursocompiladores1</contenido>
 				</documento>
-				<documento>
-					<nombre>lexico</nombre>
-					<formato>lx</formato>
-					<contenido>"analizador lexico de la practica"</contenido>
-				</documento>
-			</carpeta>
-			<documento>
-					<nombre>sintactico</nombre>
-					<formato>snt</formato>
-			</documento>
 		</carpeta>
 </estructura>
