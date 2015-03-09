@@ -1,4 +1,5 @@
 import java_cup.runtime.*;
+import java.util.LinkedList;
 
 parser code
 {:
@@ -18,6 +19,10 @@ parser code
 
 action code
 {:
+Main m = new Main();
+int n = 0;
+int nc = -1;
+int nd=0;
 :}
 
 terminal  acarpeta, aestructura, adirectorio, aformato, anombre, adocumento, acontenido, ccarpeta, cestructura, cdirectorio, cformato, cnombre, cdocumento, ccontenido;
@@ -33,23 +38,32 @@ INICIAL ::= ES;
 ES ::= E ES
       |E ;
 
-E ::= aestructura {: System.out.println("aestructura"); :} CON
-      cestructura {: System.out.println("cestructura"); :};
+E ::= aestructura {: m.EstructuraTotal.add(new NodoEstructura(null, null, null)); :} CON
+      cestructura {: n++; nc =-1 ;  :};
 
-DIR ::= adirectorio {: System.out.println("adir"); :}  palabra:pal  {: System.out.println("palabra: "+pal); :}
-        cdirectorio {: System.out.println("cdir"); :} ;
+DIR ::= adirectorio
+        palabra:pal  {:  m.EstructuraTotal.set(n, new NodoEstructura(pal ,new LinkedList<NodoCarpeta>() , new LinkedList<NodoDocumento>() )); :}
+        cdirectorio;
 
-NCAR ::= anombre {: System.out.println("anom"); :}   palabra:pal  {: System.out.println("palabra :"+pal); :}
-         cnombre {: System.out.println("cnom"); :} ;
+DCTO ::=   adocumento {: if(nc==-1){m.EstructuraTotal.get(n).getEdocumentos().add(new NodoDocumento(null, null, null));}
+                        else{m.EstructuraTotal.get(n).getEcarpetas().get(nc).getdocumentos().add(new NodoDocumento(null, null, null));} :}
+           anombre palabra:nom
+           cnombre
+           aformato palabra:forma
+           cformato
+           acontenido esstring:st
+           ccontenido
+           cdocumento {:if(nc==-1){m.EstructuraTotal.get(n).getEdocumentos().set(nd,  new NodoDocumento(nom, forma, st));}
+                        else{m.EstructuraTotal.get(n).getEcarpetas().get(nc).getdocumentos().set(nd, new NodoDocumento(nom, forma, st));}
+                        nd++; :};
 
-CAR::= acarpeta  {: System.out.println("acarpeta"); :}  CARREC
-       ccarpeta  {: System.out.println("ccarpe"); :} ;
 
-DCTO ::=   adocumento {: System.out.println("adcto"); :}
-           anombre palabra cnombre
-           aformato palabra cformato
-           acontenido esstring:st  {: System.out.println("palabra :"+st); :}  ccontenido
-           cdocumento {: System.out.println("cdcto"); :};
+CAR::= acarpeta  {: m.EstructuraTotal.get(n).getEcarpetas().add(new NodoCarpeta(null, new LinkedList<NodoDocumento>(), new LinkedList<NodoCarpeta>())); nd = 0; nc++; :}  CARREC
+       ccarpeta  {: nc--; nd = 0;  :} ;
+
+NCAR ::= anombre
+         palabra:pal  {: m.EstructuraTotal.get(n).getEcarpetas().get(nc).setcnombre(pal); :}
+         cnombre ;
 
 CARREC ::= NCAR CARREC
         |  CAR

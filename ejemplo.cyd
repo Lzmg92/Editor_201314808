@@ -1,11 +1,54 @@
 <estructura>
 	<directorio>C:</directorio>
 		<carpeta>
-			<nombre>calificacion</nombre>		        
+			<nombre>calificacion</nombre>
+			<carpeta>
+				<nombre>subcarpeta</nombre>
 				<documento>
 					<nombre>compiladores</nombre>
 					<formato>txt</formato>
-					<contenido>Cursocompiladores1</contenido>
+					<contenido>"Curso de compiladores 1"</contenido>
+				</documento>
+				<documento>
+					<nombre>lexico</nombre>
+					<formato>lx</formato>
+					<contenido>"analizador lexico de la practica"</contenido>
+				</documento>
+			</carpeta>
+			<documento>
+					<nombre>sintactico</nombre>
+					<formato>snt</formato>
+					<contenido>"analizador lexico de la practica"</contenido>
+			</documento>
+		</carpeta>
+		<documento>
+        					<nombre>lexico</nombre>
+        					<formato>lx</formato>
+        					<contenido>"es el unico afuera"</contenido>
+        				</documento>
+</estructura>
+
+<estructura>
+	<directorio>D:</directorio>
+		<carpeta>
+			<nombre>DocumentosCompi1</nombre>
+			<carpeta>
+			<nombre>Practica1</nombre>
+				<documento>
+					<nombre>EnunciadoPractica1</nombre>
+					<formato>pdf</formato>
+					<contenido>"El primer proyecto consiste en"</contenido>
+				</documento>
+				<documento>
+					<nombre>HojaCalificacion</nombre>
+					<formato>pdf</formato>
+					<contenido>"Los puntos seran distribuidos de la siguiente manera"</contenido>
+				</documento>
+			</carpeta>
+			<documento>
+					<nombre>Notas</nombre>
+					<formato>xls</formato>
+					<contenido>"Contro de notas"</contenido>
 				</documento>
 		</carpeta>
 </estructura>

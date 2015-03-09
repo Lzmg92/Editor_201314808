@@ -3,11 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.LinkedList;
 
 /**
  * Created by lezs on 4/03/15.
  */
 public class Ventana extends JFrame{
+
+    Main m = new Main();
 
     String nombre = "";
     String ruta;
@@ -121,10 +124,14 @@ public class Ventana extends JFrame{
 
         correr.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                int a = 0;
+                int b = 0;
+                int  b1 = 0;
                 try {
                     System.out.println("entro");
                     System.out.println("--------------------------------");
                     new AnalizadorSin(new AnalizadorLex(new FileInputStream("ejemplo.cyd"))).parse();
+
                 } catch (FileNotFoundException e1) {
                     System.out.println("no entro no encontrado");
                     e1.printStackTrace();
@@ -132,9 +139,52 @@ public class Ventana extends JFrame{
                     System.out.println("no entro no se x q");
                     e1.printStackTrace();
                 }
+
+                for(int i = 0; i< m.EstructuraTotal.size(); i++){
+                    System.out.println(m.EstructuraTotal.get(i).edireccion);
+                    a=0;
+                    b=0;
+
+                    while (a < m.EstructuraTotal.get(i).getEcarpetas().size()){
+                        System.out.println(m.EstructuraTotal.get(i).getEcarpetas().get(a).cnombre);
+                        a++;
+                    }
+
+                    while (b < m.EstructuraTotal.get(i).getEdocumentos().size()){
+                        System.out.println(m.EstructuraTotal.get(i).getEdocumentos().get(b).dnombre);
+                        System.out.println(m.EstructuraTotal.get(i).getEdocumentos().get(b).dformato);
+                        System.out.println(m.EstructuraTotal.get(i).getEdocumentos().get(b).dcontenido);
+                        b++;
+
+                    }
+                }
+
             }
         });
 
+
+
+     //   m.EstructuraTotal.set(n, new NodoEstructura(pal, new LinkedList<NodoCarpeta>(), new LinkedList<NodoDocumento>()));
+
+      /*  int n = 0;
+         m.EstructuraTotal.get(0).getEcarpetas().get(0).getcarpetas().add(new NodoCarpeta(null, null, null));
+
+        m.EstructuraTotal.get(n).setEcarpetas(new LinkedList<NodoCarpeta>());
+
+
+        m.EstructuraTotal.add(new NodoEstructura(null, null, null));
+
+        m.EstructuraTotal.get(0).setEcarpetas(new LinkedList<NodoCarpeta>());
+        m.EstructuraTotal.get(0).setEdireccion("fsa");
+
+        NodoDocumento docto = new NodoDocumento(null, null, null);
+
+        m.EstructuraTotal.get(n).getEdocumentos().get(nc).setdcontenido("");
+
+
+        m.EstructuraTotal.get(n).getEcarpetas().get(nc).setcarpetas(new LinkedList<NodoCarpeta>());
+
+        m.EstructuraTotal.get(n).getEcarpetas().get(nc).getdocumentos.add(new LinkedList<NodoDocumento>()); */
 
     }
 
